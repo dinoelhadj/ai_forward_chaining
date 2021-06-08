@@ -3,19 +3,21 @@ package com.company;
 import java.util.ArrayList;
 
 public class Rule {
-    public ArrayList<Fait> conditions;
-    public Fait result;
+    public ArrayList<Action> conditions;
+    public Action result;
+    public boolean used;
 
-    public Rule(ArrayList<Fait> conditions, Fait result) {
+    public Rule(ArrayList<Action> conditions, Action result) {
         this.conditions = conditions;
         this.result = result;
+        used = false;
     }
 
     @Override
     public String toString() {
         String toReturn = "";
-        for (Fait fait:conditions) {
-            toReturn = toReturn.concat(fait.character + ", ");
+        for (Action action:conditions) {
+            toReturn = toReturn.concat(action.character + ", ");
         }
         return toReturn.substring(0,toReturn.length()-2) + " ==> " + result.character;
     }

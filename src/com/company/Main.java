@@ -6,52 +6,56 @@ public class Main {
 
     public static void main(String[] args) {
 
-	    //declaration
-        ArrayList<Fait> bF = new ArrayList<>();
+        //declaration
+        ArrayList<Action> bF = new ArrayList<>();
         ArrayList<Rule> bR = new ArrayList<>();
 
-        //faits
-        Fait a = new Fait("a");
-        Fait b = new Fait("b");
-        Fait c = new Fait("c");
-        Fait d = new Fait("d");
-        Fait e = new Fait("e");
-        Fait f = new Fait("f");
-        Fait z = new Fait("z");
+        //Actions
+        Action a = new Action("a");
+        Action b = new Action("b");
+        Action c = new Action("c");
+        Action d = new Action("d");
+        Action e = new Action("e");
+        Action f = new Action("f");
+        Action z = new Action("z");
 
         //partie conditions pour les régles
-        ArrayList<Fait> r1a = new ArrayList<>();
+        ArrayList<Action> r1a = new ArrayList<>();
         r1a.add(a);r1a.add(b);r1a.add(c);
 
-        ArrayList<Fait> r2a = new ArrayList<>();
+        ArrayList<Action> r2a = new ArrayList<>();
         r2a.add(a);r2a.add(d);
 
-        ArrayList<Fait> r3a = new ArrayList<>();
+        ArrayList<Action> r3a = new ArrayList<>();
         r3a.add(a);r3a.add(e);
-        
-        ArrayList<Fait> r4a = new ArrayList<>();
+
+        ArrayList<Action> r4a = new ArrayList<>();
         r4a.add(a);r4a.add(e);r4a.add(f);
-        
+
 
         //rules
         Rule R1 = new Rule(r1a,d);
         Rule R2 = new Rule(r2a,e);
+        Rule R5 = new Rule(r2a,a);
+        Rule R6 = new Rule(r2a,a);
+        Rule R7 = new Rule(r2a,a);
         Rule R3 = new Rule(r3a,f);
         Rule R4 = new Rule(r4a,z);
 
-	    //remplisage des faits a la base des faits
+        //remplisage des Actions a la base des Actions
         bF.add(a);
         bF.add(b);
         bF.add(c);
 
         //remplisage des régles a la base des régles
-        bR.add(R1);
+        bR.add(R1);bR.add(R5);bR.add(R6);bR.add(R7);
         bR.add(R2);
         bR.add(R3);
         bR.add(R4);
 
-        //but
-        Fait goal = z;
+
+        //goal
+        Action goal = z;
 
         System.out.println(bF_string(bF));
         System.out.println(bR_string(bR));
@@ -59,30 +63,34 @@ public class Main {
         //
         int i = 0;//counts rules
         try {
-            while ( !bF.contains(goal) && i <= bR.size()){
-                System.out.println("\nwhile started!\n");
-                System.out.println("rules loop! size:" + bR.size() + ", current rule: " + (i+1));
+            while ( !bF.contains(goal) && !bR.isEmpty()){
+                System.out.println("\ncurrent rule: " + (i+1) + "/" + bR.size());
                 Rule rule = bR.get(i);
                 System.out.println(rule.toString());
                 boolean available = true;
-                for (Fait fait:rule.conditions) {
-                    System.out.println("fait loop!, current fait: " + fait.character);
-                    if (!bF.contains(fait)) {
+                for (Action action:rule.conditions) {
+                    System.out.println("Action loop!, current action: " + action.character);
+                    if (!bF.contains(action)) {
                         available = false;
-                        System.out.println(fait.character + " isn't available at bF");
+                        System.out.println(action.character + " isn't available at bF");
                         break;
                     }
                 }
                 if (available) {
                     if (!bF.contains(rule.result)) {
                         bF.add(rule.result);
-                        System.out.println(rule.result.character + " added to bF");
+                        System.out.println(rule.result.character + " added to bF\nRule " + rule.toString() + " removed!");
+                        bR.remove(rule);
+                        i--;
                     } else if (bF.contains(rule.result)){
                         System.out.println("bF already has " + rule.result.character +
                                 "\n" + bF_string(bF));
                     }
                 }
                 i++;
+                if (i>=bR.size()){
+                    i = 0;
+                }
             }
 
         } catch (Exception ee) {
@@ -99,12 +107,12 @@ public class Main {
 
         System.out.println("rules left :" +  (bR.size()-i));
     }
-    static String bF_string(ArrayList<Fait> bF){
-        String fait_string = "";
-        for (Fait fait : bF) {
-            fait_string = fait_string.concat(fait.character + ", ");
+    static String bF_string(ArrayList<Action> bF){
+        String Action_string = "";
+        for (Action Action : bF) {
+            Action_string = Action_string.concat(Action.character + ", ");
         }
-        return  "\nFait Base:\n" + fait_string.substring(0,fait_string.length()-2) + ".";
+        return  "\nAction Base:\n" + Action_string.substring(0,Action_string.length()-2) + ".";
     }
     static String bR_string(ArrayList<Rule> bR){
         String rule_string = "";

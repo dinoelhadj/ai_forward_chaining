@@ -1,9 +1,9 @@
 package com.company;
 
-public class Fait {
+public class Action {
     public String character;
 
-    public Fait(String character) {
+    public Action(String character) {
         this.character = character;
     }
 }
