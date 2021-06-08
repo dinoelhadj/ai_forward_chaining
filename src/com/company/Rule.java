@@ -5,12 +5,10 @@ import java.util.ArrayList;
 public class Rule {
     public ArrayList<Action> conditions;
     public Action result;
-    public boolean used;
 
     public Rule(ArrayList<Action> conditions, Action result) {
         this.conditions = conditions;
         this.result = result;
-        used = false;
     }
 
     @Override
