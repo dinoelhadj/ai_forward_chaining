@@ -7,11 +7,11 @@ public class Main {
     public static void main(String[] args) {
 
 
-        //declaration
+        //declaration des bases
         ActionBase actionBase = new ActionBase();
         RuleBase ruleBase = new RuleBase();
 
-        //Actions
+        //declataion des faits
         Action a = new Action("a");
         Action b = new Action("b");
         Action c = new Action("c");
@@ -20,48 +20,48 @@ public class Main {
         Action f = new Action("f");
         Action z = new Action("z");
 
-        //Conditions
+        //declaration des tables (partie condition pour les régles)
         ArrayList<Action> r1a = new ArrayList<>();
-        r1a.add(a);r1a.add(b);r1a.add(c);
+        r1a.add(a);r1a.add(b);r1a.add(c); // a, b ,c
 
         ArrayList<Action> r2a = new ArrayList<>();
-        r2a.add(a);r2a.add(d);
+        r2a.add(a);r2a.add(d); // a, d
 
         ArrayList<Action> r3a = new ArrayList<>();
-        r3a.add(a);r3a.add(e);
+        r3a.add(a);r3a.add(e); // a, e
 
         ArrayList<Action> r4a = new ArrayList<>();
-        r4a.add(a);r4a.add(e);r4a.add(f);
+        r4a.add(a);r4a.add(e);r4a.add(f);// a, e, f
 
 
-        //Rules
-        Rule R1 = new Rule(r1a,d);
-        Rule R2 = new Rule(r2a,e);
-        Rule R5 = new Rule(r2a,a);
-        Rule R6 = new Rule(r2a,a);
-        Rule R7 = new Rule(r2a,a);
-        Rule R3 = new Rule(r3a,f);
-        Rule R4 = new Rule(r4a,z);
+        //declaration des régles
+        //new Rule(r1a,d), r1a c’est a,b,c, d est la résultat, alors la régle est a,b,c => d
+        Rule R1 = new Rule(r1a,d); // a,b,c => d
+        Rule R2 = new Rule(r2a,e); // a,d => e
+        Rule R5 = new Rule(r2a,c); // a,d => c
+        Rule R6 = new Rule(r2a,b); // a,d => b
+        Rule R3 = new Rule(r3a,f); // a,e => f
+        Rule R4 = new Rule(r4a,z); // a,e,f => z
 
-        //adding actions to action base
+        // ajout de faits à la base des faits
         actionBase.add(a);
         actionBase.add(b);
         actionBase.add(c);
 
-        //adding rules to rule base
-        ruleBase.add(R1);ruleBase.add(R5);ruleBase.add(R6);ruleBase.add(R7);
+        //ajout de régles à la base des régles
+        ruleBase.add(R1);ruleBase.add(R5);ruleBase.add(R6);
         ruleBase.add(R2);ruleBase.add(R3);ruleBase.add(R4);
 
 
-        //goal
+        //déclaration de but
         Action goal = z;
 
+        //affichage des bases
         System.out.println(actionBase);
         System.out.println(ruleBase);
 
-
-        int i = 0;//counts rules
-
+        //compteur de régles
+        int i = 0;
         try {
             while ( !actionBase.contains(goal) && !ruleBase.isEmpty()){
                 System.out.println("\nCurrent rule: " + (i+1) + "/" + ruleBase.size());
@@ -99,12 +99,12 @@ public class Main {
 
         if (actionBase.contains(goal)){
             System.out.println("\nSuccess!\nGoal Obtained");
-        } else if (i==ruleBase.size()){
+        } else if (ruleBase.isEmpty()){
             System.out.println("\nFail!\nOut of Rules");
         } else System.out.println("\nFail!\nGoal Not Obtained For Other Reasons!");
 
         System.out.println(actionBase);
 
-        System.out.println("rules left :" +  (ruleBase.size()-i));
+        System.out.println("rules left :" +  (ruleBase.size()));
     }
 }

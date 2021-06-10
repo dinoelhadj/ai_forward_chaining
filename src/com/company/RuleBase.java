@@ -14,9 +14,6 @@ public class RuleBase {
     public void add(Rule rule){
         rb.add(rule);
     }
-    /*public void remove(Rule rule){
-        rb.remove(rule);
-    }*/
     public Rule get(int i){
         return rb.get(i);
     }
@@ -33,6 +30,7 @@ public class RuleBase {
     public boolean isEmpty(){
         return rb.isEmpty();
     }
+
     @Override
     public String toString() {
         String rule_string = "";
