@@ -55,16 +55,16 @@ b.	Declaration of actions:
 
 c.	Declaration of tables (Condition part of rules) :
       ArrayList<Action> r1a = new ArrayList<>();
-      r1a.add(a);r1a.add(b);r1a.add(c); // a, b ,c
+      r1a.add(a);r1a.add(b);r1a.add(c); 
 
       ArrayList<Action> r2a = new ArrayList<>();
-      r2a.add(a);r2a.add(d); // a, d
+      r2a.add(a);r2a.add(d);
 
       ArrayList<Action> r3a = new ArrayList<>();
-      r3a.add(a);r3a.add(e); // a, e
+      r3a.add(a);r3a.add(e);
 
       ArrayList<Action> r4a = new ArrayList<>();
-      r4a.add(a);r4a.add(e);r4a.add(f);// a, e, f
+      r4a.add(a);r4a.add(e);r4a.add(f);
   
 d.	Declaration of rules
 new Rule(r1a,d), r1a is a,b,c, d is the result, so the rule is a,b,c => d
@@ -102,15 +102,15 @@ h.	Printing bases
 i.	Forward Chaining algorithm
       int i = 0;
       try {
-        //code1
+        code1
       } catch (Exception ex){
-        //code2
+        code2
       }
 i is rule counter initialized to 0
 the "try" will try to execute code1, if an error is detected in the code, the catch will execute code2
 in code1 we have:
         while ( !actionBase.contains(goal) && !ruleBase.isEmpty()){
-          //code3
+          code3
         }
 the “while” will loop code3 until “actionBase.contains (goal)” (if the action base contains the goal) returns true or “ruleBase.isEmpty ()” (if the rule base is empty) returns true !
 in code3 we have:
@@ -141,7 +141,6 @@ for all the actions in the condition part of the rule {
   }
 }
   
-  
       if (available) {
           if (!actionBase.contains(rule.result)) {
               actionBase.add(rule.result);
@@ -158,26 +157,25 @@ if available is true {
   if actionbase does not contain the result of the rule then {
     add rule result based on facts;
     display (result + ’has been added to actionbase, rule‘ ’+ rule +‘ ’has been moved to used rules!’ ’);
-    Disable(rule); // to move it
-    i--; // decrement the rule counter because in deleting a rule then the following rule number is the same as that which was deleted (after the general increment at        the end of the loop
+    Disable(rule); 
+    i--;  decrement the rule counter because in deleting a rule then the following rule number is the same as that which was deleted (after the general increment at        the end of the loop
     } else display (’actionbase already have this fact‘ ’);
 }
  
-
       i++;
       if (i>=ruleBase.size()){
           i = 0;
       }
   
-i++; // incrementation general, incrementation de i chaque fois on finir le parcours avec une régle
-if (i >= the size of rulebase) then {
-  i = 0; // initialize i because we are not in the last rule so the next rule is the 1st, then i = 0;
+i++; general incrementation, incrementation of i each time we finish the course with a rule
+if (i equals or greater than the size of rulebase) then {
+  i = 0;  initialize i because we are not in the last rule so the next rule is the 1st, then i = 0;
 } 
       if (actionBase.contains(goal)){
-        System.out.println("\nSuccess!\nGoal Obtained");
+        System.out.println("Success!\nGoal Obtained");
       } else if (ruleBase.isEmpty()){
-          System.out.println("\nFail!\nOut of Rules");
-      } else System.out.println("\nFail!\nGoal Not Obtained For Other Reasons!");
+          System.out.println("Fail! Out of Rules");
+      } else System.out.println("Fail!  Goal Not Obtained For Other Reasons!");
           System.out.println(actionBase);
       System.out.println("rules left :" +  (ruleBase.size()));
   
@@ -191,8 +189,6 @@ if (actionbase contains (goal)) {
 Display actionbase;
 Display ("unused rules:" + rulebase size);
 Display ("used rules:" +  display used rules);
-  
-      ///////////////////////////////////////////////
   
 3.	Report:
 so the algorithm does the chaining before, after the declaration and all, a "while" loop (which stops only if the rule base is empty or if the goal is found in the rule base) loops all the rules and sees which one is applicable by checking the existence of their fact condition in the fact base, if they exist then the rule is applicable and the result will be added to the action base and the rule will be moved to the used rules base, at the end of the loop, the goal will be checked if it exists in action base, if yes a success message will be displayed, otherwise a failure message will be displayed, with the final action base and both of used and unused rules
